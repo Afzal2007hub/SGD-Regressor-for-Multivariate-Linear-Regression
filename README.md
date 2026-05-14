@@ -81,9 +81,41 @@ y_pred_all = np.dot(X, weights)
 print("Predicted values:", y_pred_all)
 
 ~~~
+~~~
+#Using scikit-learn SGDRegressor
+from sklearn.linear_model import SGDRegressor
+from sklearn.preprocessing import StandardScaler
 
+# Features and target
+X = np.array([
+    [2, 80, 50],
+    [3, 60, 40],
+    [5, 90, 70],
+    [7, 85, 80],
+    [9, 95, 90]
+])
+y = np.array([50, 45, 70, 80, 95])
+
+# Feature scaling
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Create SGD Regressor
+sgd_reg = SGDRegressor(max_iter=1000, learning_rate='invscaling', eta0=0.01, random_state=42)
+sgd_reg.fit(X_scaled, y)
+
+# Coefficients and intercept
+print("Weights (coefficients):", sgd_reg.coef_)
+print("Intercept:", sgd_reg.intercept_)
+
+# Predictions
+y_pred = sgd_reg.predict(X_scaled)
+print("Predicted values:", y_pred)
+
+~~~
 ## Output:
 <img width="1247" height="62" alt="image" src="https://github.com/user-attachments/assets/89c4cbc1-b5ea-475c-ba01-cb5cadd0f359" />
+<img width="1254" height="85" alt="image" src="https://github.com/user-attachments/assets/dfebcafd-ae42-468b-b8b8-22e68f71890a" />
 
 
 ## Result:
